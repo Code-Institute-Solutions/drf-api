@@ -5,3 +5,9 @@ env.py
 __pycache__/
 *.py[cod]
 node_modules/
+
+# ignoring migrations
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+db.sqlite3
