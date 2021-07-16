@@ -21,6 +21,9 @@ class ProfileList(APIView):
 
 
 class ProfileDetail(APIView):
+    """
+    Retrieve a profile or edit it if you own it
+    """
     serializer_class = ProfileSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
