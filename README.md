@@ -1,58 +1,72 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Moments - API
+## Project description
+Moments is a social media platform. It has been designed for its users to share their life's moments. The application consists of the React app and an API. Welcome to the Django Rest Framework API project section.
 
-Welcome mr-fibonacci,
+## User stories
+| Category  | as | I want to           | so that I can                                                                                    | mapping API feature                          |
+| --------- | -------- | ------------------------------ | ------------------------------------------------------------------------------------------------ | -------------------------------------------- |
+| auth      | user     | register for an account        | have a personal profile with a picture                                                           | dj-rest-auth<br>Create profile (signals)     |
+| auth      | user     | register for an account        | create, like and comment on posts                                                                | Create post<br>Create comment<br>Create like |
+| auth      | user     | register for an account        | follow users                                                                                     | Create follower                              |
+| posts     | visitor  | view a list of posts           | browse the most recent uploads                                                                   | List/ Filter posts                           |
+| posts     | visitor  | view an individual post        | see user feedback, i.e. likes and read comments                                                  | Retrieve post                                |
+| posts     | visitor  | search a list of posts         | find a post by a specific artist or a title                                                      | List/ Filter posts                           |
+| posts     | visitor  | scroll through a list of posts | browse the site more comfortably                                                                 | List/ Filter posts                           |
+| posts     | user     | edit and delete my post        | correct or hide any mistakes                                                                     | Update property<br>Destroy property          |
+| posts     | user     | create a post                  | share my moments with others                                                                     | Create post                                  |
+| posts     | user     | view liked posts               | go back often to my favourite posts                                                              | List/ Filter posts                           |
+| posts     | user     | view followed users' posts     | keep up with my favourite users' moments                                                         | List/ Filter posts                           |
+| likes     | user     | like a post                    | express my interest in someone's shared moment                                                   | Create like                                  |
+| likes     | user     | unlike a post                  | express that my interest in someone's shared moment has faded away                               | Destroy like                                 |
+| comments  | user     | create a comment               | share my thoughts on other people's content                                                      | Create comment                               |
+| comments  | user     | edit and delete my comment     | correct or hide any mistakes                                                                     | Update comment<br>Destroy comment            |
+| profiles  | user     | view a profile                 | see a user's recent posts + post, followers, following count data                                | Retrieve profile<br>List/ filter posts       |
+| profiles  | user     | edit a profile                 | update my profile information                                                                    | Update profile                               |
+| followers | user     | follow a profile               | express my interest in someone's content                                                         | Create follower                              |
+| followers | user     | unfollow a profile             | express that my interest in someone's content has faded away and remove their posts from my feed | Destroy follower                             |
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
+## Entity Relationship Diagram
+![ERD](https://res.cloudinary.com/dgjrrvdbl/image/upload/v1649155000/moments-api-erd_aw81vx.png)
 
-## Gitpod Reminders
+## Models and CRUD breakdown
+| model     | endpoints                    | create        | retrieve | update | delete | filter                   | text search |
+| --------- | ---------------------------- | ------------- | -------- | ------ | ------ | ------------------------ | ----------- |
+| users     | users/<br>users/:id/         | yes           | yes      | yes    | no     | no                       | no          |
+| profiles  | profiles/<br>profiles/:id/   | yes (signals) | yes      | yes    | no     | following<br>followed    | name        |
+| likes     | likes/<br>likes/:id/         | yes           | yes      | no     | yes    | no                       | no          |
+| comments  | comments/<br>comments/:id/   | yes           | yes      | yes    | yes    | post                     | no          |
+| followers | followers/<br>followers/:id/ | yes           | yes      | no     | yes    | no                       | no          |
+| posts     | posts/<br>posts/:id/         | yes           | yes      | yes    | yes    | profile<br>liked<br>feed | title       |
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+## Tests
+- Posts app:
+    - logged out users can list posts
+    - logged in users can create a post
+    - logged out users can't create a post
+    - logged out users can retrieve a post with a valid id
+    - logged out users can't retrieve a post with an invalid id
+    - logged in users can update a post they own
+    - logged in users can't update a post they don't own
 
-`python3 -m http.server`
-
-A blue button should appear to click: _Make Public_,
-
-Another blue button should appear to click: _Open Browser_.
-
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
-
-A blue button should appear to click: _Make Public_,
-
-Another blue button should appear to click: _Open Browser_.
-
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
-
-To log into the Heroku toolbelt CLI:
-
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
-
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidently make it public then you can create a new one with _Regenerate API Key_.
-
-## Updates Since The Instructional Video
-
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
-
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
-
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
-
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
-
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
-
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
-
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
-
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
-
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
-
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+## Deployment steps
+- set the following environment variables:
+    - CLIENT_ORIGIN
+    - CLOUDINARY_URL
+    - DATABASE_URL
+    - DISABLE_COLLECTSTATIC
+    - SECRET_KEY
+- installed the following libraries to handle database connection:
+    - psycopg2
+	- dj-database-url
+- configured dj-rest-auth library for JWTs
+- set allowed hosts
+- configured CORS:
+	- set allowed_origins
+- set default renderer to JSON
+- added Procfile with release and web commands
+- gitignored the env&#46;py file
+- generated requirements.txt
+- deployed to Heroku
 
 ---
 
