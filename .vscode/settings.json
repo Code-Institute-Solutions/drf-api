@@ -1,8 +1,8 @@
 {
-   "python.linting.pylintEnabled": true,
+   "python.linting.pylintEnabled": false,
    "python.linting.enabled": true,
-   "python.linting.pycodestyleEnabled": false,
-   "python.linting.flake8Enabled": true,
+   "python.linting.pycodestyleEnabled": true,
+   "python.linting.flake8Enabled": false,
    "python.terminal.activateEnvironment": false,
    "python.formatting.autopep8Path": "/home/gitpod/.pyenv/shims/autopep8",
    "python.linting.flake8Path": "/home/gitpod/.pyenv/shims/flake8",
@@ -10,6 +10,7 @@
    "files.exclude": {
       "**/.DS_Store": true,
       "**/.git": true,
+      "**/.github": true,
       "**/.gitp*": true,
       "**/.hg": true,
       "**/.svn": true,
@@ -20,6 +21,7 @@
       "**/CVS": true
    },
    "files.autoSave": "off",
-   "workbench.colorTheme": "Default Light+",
+   "workbench.colorTheme": "Visual Studio Dark",
+   "terminal.integrated.gpuAcceleration": "canvas",
    "editor.defaultFormatter": "HookyQR.beautify"
 }
